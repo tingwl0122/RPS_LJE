@@ -26,13 +26,13 @@ def main(args):
     print('==> Building model..')
 
     # load pretrained weights
-    if os.path.exists('model/ResNet-pretrained.pt'.format(args.saved_path)):
+    if os.path.exists('{}/model/ResNet-pretrained.pt'.format(args.saved_path)):
         model = ResNet20(num_classes=1)
-        model.load_state_dict(torch.load('model/ResNet-pretrained.pt'.format(args.saved_path)))
+        model.load_state_dict(torch.load('{}/model/ResNet-pretrained.pt'.format(args.saved_path)))
     else:
         model = torch.hub.load("chenyaofo/pytorch-cifar-models", "cifar10_resnet20", pretrained=True)
         model.fc = torch.nn.Linear(64, 1)
-        torch.save(model.state_dict(), 'model/ResNet-pretrained.pt'.format(args.saved_path))
+        torch.save(model.state_dict(), '{}/model/ResNet-pretrained.pt'.format(args.saved_path))
     model.train()
     model = model.to(device)
 
